@@ -1,0 +1,83 @@
+.meetVideoContainer {
+    position: relative;
+    height: 100vh;
+    background: rgb(1, 4, 48);
+}
+
+.meetUserVideo {
+    position: absolute;
+    bottom: 10vh;
+    height: 20vh;
+    width: auto;
+    left: 0;
+    border-radius: 20px;
+}
+
+.buttonContainers {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    text-align: center;
+}
+
+.buttonContainers svg {
+    font-size: 3rem;
+}
+
+.conferenceView { 
+
+    display: flex;
+    
+    padding: 10px;
+    gap: 10px;
+}
+
+.conferenceView  video {
+    width: 40vw;
+    height: 20vh;
+    min-width: 30vw;
+    border-radius: 10px;
+}
+
+.chatRoom {
+    position: absolute;
+    height: 90vh;
+    right: 0;
+   background: linear-gradient(145deg, #78a3c8, #e6f7ff);
+    border-radius: 10px;
+    width: 30vw;
+    padding-inline: 20px;
+}
+
+.chatContainer {
+    position: relative;
+    height: 100%;
+}
+
+.chatBubble {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px 15px;
+  color: #003366;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 80%;
+}
+
+.senderName {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #ae845e;
+}
+.olafQuote {
+  font-size: 1.2rem;
+  color: #003366;
+  text-align: center;
+  margin: 10px 0;
+  font-style: italic;
+}
+
+
+.chattingArea {
+    position: absolute;
+    bottom: 0;
+}
