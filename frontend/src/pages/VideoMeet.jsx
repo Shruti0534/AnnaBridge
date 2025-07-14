@@ -34,9 +34,9 @@ export default function VideoMeetComponent() {
 
     let [audioAvailable, setAudioAvailable] = useState(true);
 
-    let [video, setVideo] = useState([]);
+    let [video, setVideo] = useState(true);
+let [audio, setAudio] = useState(true);
 
-    let [audio, setAudio] = useState();
 
     let [screen, setScreen] = useState();
 
@@ -382,14 +382,28 @@ export default function VideoMeetComponent() {
         return Object.assign(stream.getVideoTracks()[0], { enabled: false })
     }
 
-    let handleVideo = () => {
-        setVideo(!video);
-        // getUserMedia();
+   let handleVideo = () => {
+  if (window.localStream) {
+    const videoTracks = window.localStream.getVideoTracks();
+    if (videoTracks.length > 0) {
+      const currentState = videoTracks[0].enabled;
+      videoTracks.forEach(track => track.enabled = !currentState);
+      setVideo(!currentState);
     }
-    let handleAudio = () => {
-        setAudio(!audio)
-        // getUserMedia();
+  }
+};
+
+let handleAudio = () => {
+  if (window.localStream) {
+    const audioTracks = window.localStream.getAudioTracks();
+    if (audioTracks.length > 0) {
+      const currentState = audioTracks[0].enabled;
+      audioTracks.forEach(track => track.enabled = !currentState);
+      setAudio(!currentState);
     }
+  }
+};
+
 
     useEffect(() => {
         if (screen !== undefined) {
@@ -432,12 +446,21 @@ export default function VideoMeetComponent() {
 
 
     let sendMessage = () => {
-        console.log(socketRef.current);
-        socketRef.current.emit('chat-message', message, username)
-        setMessage("");
+  if (!message.trim()) return;
 
-        // this.setState({ message: "", sender: username })
-    }
+  // 1️⃣ Locally add the message
+  setMessages(prev => [
+    ...prev,
+    { sender: username, data: message }
+  ]);
+
+  // 2️⃣ Send it to the server/peer
+  socketRef.current.emit('chat-message', message, username);
+
+  // 3️⃣ Clear input box
+  setMessage("");
+};
+
 
     
     let connect = () => {
