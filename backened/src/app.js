@@ -85,16 +85,23 @@ app.use(express.urlencoded({ limit: "40kb", extended: true }));
 app.use("/api/v1/users", userRoutes);
 
 // --- MongoDB ---
+const PORT = process.env.PORT || 8000;
+
 const start = async () => {
-  await mongoose.connect(
-    "mongodb+srv://shrutit515:Shrutit8090@cluster0.ywy4396.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  );
-  console.log("✅ MongoDB connected");
+  try {
+    await mongoose.connect(
+      "mongodb+srv://shrutit515:Shrutit8090@cluster0.ywy4396.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
+    console.log("✅ MongoDB connected");
+
+    server.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ MongoDB connection failed:", error);
+  }
 };
 
-const PORT = process.env.PORT || 8000;
-server.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
-
 start();
+
+

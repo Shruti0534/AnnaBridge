@@ -11,9 +11,9 @@ import MicOffIcon from '@mui/icons-material/MicOff'
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import StopScreenShareIcon from '@mui/icons-material/StopScreenShare'
 import ChatIcon from '@mui/icons-material/Chat'
-//import server from '../environment';
+import server from '../environment'; // ✅ Import the server from environment.js
 
-const server_url = "http://localhost:8000";
+
 
 var connections = {};
 
@@ -65,7 +65,7 @@ let [audio, setAudio] = useState(true);
     // }
 
     useEffect(() => {
-        console.log("HELLO")
+       
         getPermissions();
 
     })
@@ -274,7 +274,8 @@ let [audio, setAudio] = useState(true);
 
 
     let connectToSocketServer = () => {
-        socketRef.current = io.connect(server_url, { secure: false })
+       socketRef.current = io.connect(server, { secure: true })
+
 
         socketRef.current.on('signal', gotMessageFromServer)
 
